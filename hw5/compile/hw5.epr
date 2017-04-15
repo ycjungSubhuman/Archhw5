@@ -1,7 +1,2 @@
-"../src/uProgramRom.v"	1
-"../src/register_files.v"	1
 "../src/opcodes.v"	1
-"../src/cpu.v"	1
-"../src/Datapath.v"	1
-"../src/uController.v"	1
-"../src/ALU.v"	1
+"../src/uProgramRom.v"	1

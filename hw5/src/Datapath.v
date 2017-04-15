@@ -79,7 +79,7 @@ module Datapath (inst,
 	
 	//assign
 	assign data2 = !writeM2 ? `WORD_SIZE'bz : inoutM2WriteBuf; 
-	
+	reg [`WORD_SIZE-1:0] next_num_inst;
 	initial begin
 		Pc = 0;
 		nextPc = 0;
@@ -87,20 +87,35 @@ module Datapath (inst,
 		readM2 = 0;
 		writeM2 = 0;
 		num_inst = 0;
+		next_num_inst = 0;
 	end
 	
 	always @(*) begin
-		
+
 	end
 	
-	always @(posedge clk) begin			
+
+	always @(posedge clk) begin
+		if(!reset_n) begin
+			Pc = 0;
+			nextPc = 0;
+			readM1 = 0;
+			readM2 = 0;
+			writeM2 = 0;
+			num_inst = 0;
+			next_num_inst = 0;
+		end
+		
+		
+		num_inst = next_num_inst;
 		//Select NextPC
 		if(PCWriteCond && branchMet || PCWrite) begin
 			if(PCSource == 0) nextPc = aluOut;
 			else if(PCSource == 1) nextPc = ALUOut;
 			else if(PCSource == 2) nextPc = {Pc[15:12], inst[11:0]};
 			else nextPc = A;
-			num_inst += 1;
+			$display("num_inst: %x to %x", num_inst, next_num_inst);
+			next_num_inst = num_inst + 1;
 		end
 		
 		//Select ALU operands
@@ -141,7 +156,7 @@ module Datapath (inst,
 		if(writeM2 == 1) writeM2 = 0;
 		
 		//pending memory operations 		
-		if(!IorD && IRWrite && MemRead) begin //pend instruction fetch
+		if(!IorD && IRWrite) begin //pend instruction fetch
 			readM1 = 1;
 			address1 = Pc;
 		end

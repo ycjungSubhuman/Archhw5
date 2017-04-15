@@ -35,8 +35,14 @@ module uController(inst, ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, 
 	end
 	
 	always@(posedge clk) begin
+		$display("state: %x, op: %d, func: %d", uState, inst[15:12], inst[5:0]);
+		$display("ALUSrcA: %x, IorD: %x, IRWrite: %x, PCWrite, %x, PCWriteCond: %x, ALUSrcB: %x, PCSource: %x, RegDest: %x, RegWrite: %x, MemRead: %x, MemWrite, %x, RegWriteSrc: %x, BranchProperty: %x, OutputPortWrite: %x, IsHalted: %x, IsLHI: %x, ALUOp: %x",
+		ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, PCSource, RegDest, RegWrite, MemRead, MemWrite, RegWriteSrc, BranchProperty, OutputPortWrite, IsHalted, IsLHI, ALUOp);
 		if(!reset_n) uState = 0;
-		else uState = nextuState;
+		else begin
+			$display("ylo");
+			uState = nextuState;
+		end
 	end
 	
 	uProgramRom uRom(
