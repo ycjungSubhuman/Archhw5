@@ -1,0 +1,61 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=hw5
+
+[Library]
+hw5=.\hw5\hw5.lib
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VERILOG
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=
+fileopenfolder=C:\Users\jung3\Downloads
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+
+[LocalVhdlSets]
+CompileWithDebug=0
+
+[$LibMap$]
+hw5=.
+Active_lib=
+
+[Files]
+/ALU.v=-1
+/ControlUnit.v=-1
+/cpu.v=-1
+/Datapath.v=-1
+/opcodes.v=-1
+/register_files.v=-1
+/cpu_TB.v=-1
+/Memory.v=-1
+/uRom.v=-1
+
+[Files.Data]
+.\src\ALU.v=Verilog Source Code
+.\src\ControlUnit.v=Verilog Source Code
+.\src\cpu.v=Verilog Source Code
+.\src\Datapath.v=Verilog Source Code
+.\src\opcodes.v=Verilog Source Code
+.\src\register_files.v=Verilog Source Code
+.\src\cpu_TB.v=Verilog Source Code
+.\src\Memory.v=Verilog Source Code
+.\src\uRom.v=Verilog Source Code
+
