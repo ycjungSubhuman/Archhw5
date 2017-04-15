@@ -58,8 +58,8 @@ module uController(inst, ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, 
 	.OutputPortWrite(OutputPortWrite),
 	.IsHalted(IsHalted),
 	.IsLHI(IsLHI),
-	.ALUOp(ALUOp)
-	//TODO : Plug nextuState
+	.ALUOp(ALUOp),
+	.nextstate(nextuState)
 	);
 	
 endmodule

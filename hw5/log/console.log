@@ -1,0 +1,27 @@
+# Design: Design hw5 already active.
+# 
+# DESIGN: Default Design Language: VERILOG
+# DESIGN: Default BDE Language: VERILOG
+# DESIGN: Flow Manager: Not Defined
+alog -O2 -sve -msg 5 -sv2k12 -work hw5 $dsn/src/uController.v
+# Pass 1. Scanning modules hierarchy.
+# Error: VCP2000 uProgramRom.v : (22, 10): Syntax error. Unexpected token: endmodule[_ENDMODULE]. Expected tokens: ''' , '(' , '{' , 'integer'' , 'real'' ... .
+# Error: VCP2565 uProgramRom.v : (7, 14): Undefined direction of external port RegWrite.
+# Error: VCP2567 uProgramRom.v : (7, 14): Undefined direction of internal port RegWrite.
+# Error: VCP2565 uProgramRom.v : (7, 24): Undefined direction of external port MemRead.
+# Error: VCP2567 uProgramRom.v : (7, 24): Undefined direction of internal port MemRead.
+# Error: VCP2565 uProgramRom.v : (7, 33): Undefined direction of external port MemWrite.
+# Error: VCP2567 uProgramRom.v : (7, 33): Undefined direction of internal port MemWrite.
+# Error: VCP2565 uProgramRom.v : (7, 43): Undefined direction of external port RegWriteSrc.
+# Error: VCP2567 uProgramRom.v : (7, 43): Undefined direction of internal port RegWriteSrc.
+# Error: VCP2565 uProgramRom.v : (7, 56): Undefined direction of external port BranchProperty.
+# Error: VCP2567 uProgramRom.v : (7, 56): Undefined direction of internal port BranchProperty.
+# Error: VCP2565 uProgramRom.v : (7, 72): Undefined direction of external port OutputPortWrite.
+# Error: VCP2567 uProgramRom.v : (7, 72): Undefined direction of internal port OutputPortWrite.
+# Error: VCP2565 uProgramRom.v : (8, 5): Undefined direction of external port IsHalted.
+# Error: VCP2567 uProgramRom.v : (8, 5): Undefined direction of internal port IsHalted.
+# Error: VCP2565 uProgramRom.v : (8, 15): Undefined direction of external port IsLHI.
+# Error: VCP2567 uProgramRom.v : (8, 15): Undefined direction of internal port IsLHI.
+# Error: VCP2565 uProgramRom.v : (8, 22): Undefined direction of external port ALUOp.
+# Error: VCP2567 uProgramRom.v : (8, 22): Undefined direction of internal port ALUOp.
+# Compile failure 19 Errors 0 Warnings  Analysis time: 0[s].
