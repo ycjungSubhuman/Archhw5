@@ -6,4 +6,4 @@
 .\src\register_files.v
 .\src\cpu_TB.v
 .\src\Memory.v
-.\src\uRom.v
+.\src\uProgramRom.v

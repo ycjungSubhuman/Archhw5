@@ -46,7 +46,7 @@ Active_lib=
 /register_files.v=-1
 /cpu_TB.v=-1
 /Memory.v=-1
-/uRom.v=-1
+/uProgramRom.v=-1
 
 [Files.Data]
 .\src\ALU.v=Verilog Source Code
@@ -57,5 +57,5 @@ Active_lib=
 .\src\register_files.v=Verilog Source Code
 .\src\cpu_TB.v=Verilog Source Code
 .\src\Memory.v=Verilog Source Code
-.\src\uRom.v=Verilog Source Code
+.\src\uProgramRom.v=Verilog Source Code
 
