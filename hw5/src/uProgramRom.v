@@ -9,24 +9,24 @@ module uProgramRom (state, inst,
 	
 	input [4:0] state;
 	input [`WORD_SIZE-1:0] inst;
-	output ALUSrcA;
-	output IorD;
-	output IRWrite;
-	output PCWrite;
-	output PCWriteCond;
-	output [2:0] ALUSrcB;
-	output [1:0] PCSource;
-	output [1:0] RegDest;
-	output RegWrite;
-	output MemRead;
-	output MemWrite;
-	output [1:0] RegWriteSrc;
-	output [1:0] BranchProperty;
-	output OutputPortWrite;
-	output IsHalted;
-	output IsLHI;
-	output [1:0] ALUOp;
-	output [`WORD_SIZE-1:0] nextstate;
+	output reg ALUSrcA;
+	output reg IorD;
+	output reg IRWrite;
+	output reg PCWrite;
+	output reg PCWriteCond;
+	output reg [2:0] ALUSrcB;
+	output reg [1:0] PCSource;
+	output reg [1:0] RegDest;
+	output reg RegWrite;
+	output reg MemRead;
+	output reg MemWrite;
+	output reg [1:0] RegWriteSrc;
+	output reg [1:0] BranchProperty;
+	output reg OutputPortWrite;
+	output reg IsHalted;
+	output reg IsLHI;
+	output reg [1:0] ALUOp;
+	output reg [`WORD_SIZE-1:0] nextstate;
 	
 	wire [3:0] opcode = inst[`WORD_SIZE-1: `WORD_SIZE-4];
 	wire [5:0] func = (opcode==`ALU_OP) ? inst[5:0] : 0;
@@ -57,12 +57,12 @@ module uProgramRom (state, inst,
 		else MemWrite = 0;
 		if(state == `STATE_WWD1) OutputPortWrite = 1;
 		else OutputPortWrite = 0;
-		if(state == `STATE_HLT1) isHalted = 1;
-		else isHalted = 0;
-		case(state)	begin
+		if(state == `STATE_HLT1) IsHalted = 1;
+		else IsHalted = 0;
+		case(state)
 			`STATE_C1: begin
 				ALUSrcA = 0;
-				lorD = 0;
+				IorD = 0;
 				ALUSrcB = 1;
 				PCSource = 0;
 				ALUOp = 1;
@@ -75,12 +75,12 @@ module uProgramRom (state, inst,
 				if(opcode == `ALU_OP) begin
 					if(func == `INST_FUNC_WWD) nextstate = `STATE_WWD1;
 					else if(func == `INST_FUNC_JPR) nextstate = `STATE_JPR1;
-					else if(func == `INST_FUNC_JPL) nextstate = `STATE_JPL1;
+					else if(func == `INST_FUNC_JRL) nextstate = `STATE_JRL1;
 					else if(func == `INST_FUNC_HLT) nextstate = `STATE_HLT1;
 					else nextstate = `STATE_R1;
 				end
 				else begin
-					case(opcode) begin
+					case(opcode)
 						`ADI_OP: nextstate = `STATE_ADI1;
 						`ORI_OP: nextstate = `STATE_ORI1;
 						`LHI_OP: nextstate = `STATE_LHI1;
@@ -131,7 +131,7 @@ module uProgramRom (state, inst,
 				nextstate = `STATE_C1;
 			end 
 			`STATE_LW2: begin
-				lorD = 1;
+				IorD = 1;
 				nextstate = `STATE_LW3;
 			end 
 			`STATE_LW3: begin
@@ -147,10 +147,10 @@ module uProgramRom (state, inst,
 				else if(opcode == `SWD_OP) nextstate = `STATE_SW2;
 			end 
 			`STATE_SW2: begin
-				lorD = 1;
+				IorD = 1;
 				nextstate = `STATE_C1;
 			end 
-			`STATE_BR_BEQ1: begin
+			`STATE_BEQ1: begin
 				ALUSrcA = 1;
 				ALUSrcB = 0;
 				PCSource = 1;
@@ -158,7 +158,7 @@ module uProgramRom (state, inst,
 				ALUOp = 3;
 				nextstate = `STATE_C1;
 			end 
-			`STATE_BR_BNE1: begin
+			`STATE_BNE1: begin
 				ALUSrcA = 1;
 				ALUSrcB = 0;
 				PCSource = 1;
@@ -166,7 +166,7 @@ module uProgramRom (state, inst,
 				ALUOp = 3;
 				nextstate = `STATE_C1;
 			end 
-			`STATE_BR_BGZ1: begin
+			`STATE_BGZ1: begin
 				ALUSrcA = 1;
 				ALUSrcB = 5;
 				PCSource = 1;
@@ -174,7 +174,7 @@ module uProgramRom (state, inst,
 				ALUOp = 3;
 				nextstate = `STATE_C1;
 			end 
-			`STATE_BR_BLZ1: begin
+			`STATE_BLZ1: begin
 				ALUSrcA = 1;
 				ALUSrcB = 5;
 				PCSource = 1;

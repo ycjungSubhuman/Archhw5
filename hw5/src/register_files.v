@@ -34,7 +34,7 @@ module RegisterFiles(ctrlRegWrite, readReg1, readReg2, writeReg, writeData, clk,
 	always @(posedge clk) begin
 		if(ctrlRegWrite) registers[writeReg] = writeData;
 		//registers[0] = 0;
-		$display("r0: %x, r1: %x, r2: %x, r3: %x", registers[0], registers[1], registers[2], registers[3]);
+		//$display("r0: %x, r1: %x, r2: %x, r3: %x", registers[0], registers[1], registers[2], registers[3]);
 	end	
 	  
 endmodule

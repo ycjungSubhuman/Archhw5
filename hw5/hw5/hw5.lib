@@ -1,1 +1,92 @@
+timestamp=1492270516877
 
+[~A]
+LastVerilogToplevel=cpu_TB
+ModifyID=14
+Version=74
+c:/My_Designs/hw5/hw5/src/Datapath.v=0*48320*50829
+c:/My_Designs/hw5/hw5/src/Memory.v=0*7607*9698
+c:/My_Designs/hw5/hw5/src/cpu.v=0*53641*58033
+c:/My_Designs/hw5/hw5/src/cpu_TB.v=0*38058*44949
+c:/My_Designs/hw5/hw5/src/opcodes.v=0*150*433
+c:/My_Designs/hw5/hw5/src/register_files.v=0*45937*46611
+c:/My_Designs/hw5/hw5/src/uController.v=0*4567*6663
+c:/My_Designs/hw5/hw5/src/uProgramRom.v=0*1470*3102
+
+[$root]
+A/$root=22|||1*105542
+BinI32/$root=3*107224
+SLP=3*107328
+Version=10.3.3559.6081  (Windows)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|c73a565f2ade592f8ac1c68f484c9216e1ca837fa387ea87a54690628bccb5f6
+
+[ALU]
+A/ALU=22|./../src/ALU.v|4|1*114307
+BinI32/ALU=3*114946
+R=./../src/ALU.v|4
+SLP=3*116091
+Version=10.3.3559.6081  (Windows)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|b3eb40c25b2a3c0379c7730185183eec68325a9a66b348828a86625c9b5e92a8
+
+[Datapath]
+A/Datapath=22|./../src/Datapath.v|5|1*115548
+BinI32/Datapath=3*116730
+R=./../src/Datapath.v|5
+SLP=3*120212
+Version=10.3.3559.6081  (Windows)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|a669a8c200b0b8d1050cae0727db5425a2d64f5b3f1ab053059fc06bddcad10576d8e8e713ce8056398a7dcb6788787b
+
+[Memory]
+A/Memory=22|./../src/Memory.v|7|1*10265
+BinI32/Memory=3*12377
+R=./../src/Memory.v|7
+SLP=3*15253
+Version=10.3.3559.6081  (Windows)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|ebff02703061a61c6a5bcb20ada9dd29b47fb37ac15a773e2d29e5741a117998
+
+[RegisterFiles]
+A/RegisterFiles=22|./../src/register_files.v|3|1*112125
+BinI32/RegisterFiles=3*113687
+R=./../src/register_files.v|3
+SLP=3*114530
+Version=10.3.3559.6081  (Windows)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|0422c61e9be97c1a93b0a0dbf1014d2acc39d83eb5bc91c1b7f5bfe2ad199ae116df0da3560e3ae5e6d1c65f2688935c
+
+[cpu]
+A/cpu=22|./../src/cpu.v|5|1*120977
+BinI32/cpu=3*122117
+R=./../src/cpu.v|5
+SLP=3*122219
+Version=10.3.3559.6081  (Windows)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|13d2a6012ae176ed67c47d3a5127b060fe65823f0ed793040b42fe2cf0b919b0
+
+[cpu_TB]
+A/cpu_TB=22|./../src/cpu_TB.v|9|1*88400
+BinI32/cpu_TB=3*87224
+R=./../src/cpu_TB.v|9
+SLP=3*92063
+Version=10.3.3559.6081  (Windows)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|4c2b234e44c8da4b84a1dcf9bb620ee2bc74e193b2ab90e4c40d6f849e749064
+
+[uController]
+A/uController=22|./../src/uController.v|4|1*108814
+BinI32/uController=3*112807
+R=./../src/uController.v|4
+SLP=3*113336
+Version=10.3.3559.6081  (Windows)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|c17b036c395bccc792f757e2f5cfcf796836ec0193b34648bf115e4a4f3583d8eed5235f700c6f10d88bc30c3fcf4474
+
+[uProgramRom]
+A/uProgramRom=22|./../src/uProgramRom.v|5|1*105916
+BinI32/uProgramRom=3*107396
+R=./../src/uProgramRom.v|5
+SLP=3*110007
+Version=10.3.3559.6081  (Windows)|0000000b789cd3f53752d02d2e33ca3634020010aa02e5|19cc58ed7d79dec1c9a1df3f9ce62cc847a8ddf54ccbefb0f046233f39a7933b1f47530c0c676fb154a3786eeb50619c
+
+[~MFT]
+0=11|0hw5.mgf|58033|18569
+1=14|1hw5.mgf|120977|96806
+3=28|3hw5.mgf|122219|90480
+
+[~U]
+$root=12|0*51314|
+ALU=12|0*52598|
+Datapath=12|0*52812|
+Memory=12|0*7349||0x10
+RegisterFiles=12|0*52323|
+cpu=12|0*53295|
+cpu_TB=12|0*37843||0x10
+uController=12|0*51931|
+uProgramRom=12|0*51544|

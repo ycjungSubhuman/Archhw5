@@ -1,4 +1,5 @@
 `timescale 1ns/1ns
+`include "cpu.v"
 `define PERIOD1 100
 `define WORD_SIZE 16
 

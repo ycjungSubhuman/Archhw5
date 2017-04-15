@@ -1,1 +1,19 @@
-0
+14
+~M 0 "" 0 $root
+~A 1 "" 0 $root
+~M 1 "./../src/ALU.v" 4 ALU
+~A 1 "./../src/ALU.v" 4 ALU
+~M 1 "./../src/Datapath.v" 5 Datapath
+~A 1 "./../src/Datapath.v" 5 Datapath
+~M 3 "./../src/Memory.v" 7 Memory
+~A 1 "./../src/Memory.v" 7 Memory
+~M 1 "./../src/register_files.v" 3 RegisterFiles
+~A 1 "./../src/register_files.v" 3 RegisterFiles
+~M 1 "./../src/cpu.v" 5 cpu
+~A 1 "./../src/cpu.v" 5 cpu
+~M 3 "./../src/cpu_TB.v" 9 cpu_TB
+~A 1 "./../src/cpu_TB.v" 9 cpu_TB
+~M 1 "./../src/uController.v" 4 uController
+~A 1 "./../src/uController.v" 4 uController
+~M 1 "./../src/uProgramRom.v" 5 uProgramRom
+~A 1 "./../src/uProgramRom.v" 5 uProgramRom

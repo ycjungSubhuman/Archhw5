@@ -1,5 +1,6 @@
 `include "opcodes.v"
 `include "uController.v"
+`include "Datapath.v"
 
 module cpu (clk, reset_n, readM1, address1, data1, readM2, writeM2, address2, data2, num_inst, output_port, is_halted);
 	input clk;											// clock signal	
@@ -43,10 +44,10 @@ module cpu (clk, reset_n, readM1, address1, data1, readM2, writeM2, address2, da
 	// Datapath 
     Datapath dpath (inst, 
 	readM1, address1, data1,
-	readM2, writeM2, address2, data2
+	readM2, writeM2, address2, data2,
 	ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, PCSource, 
 	RegDest, RegWrite, MemRead, MemWrite, RegWriteSrc, BranchProperty, OutputPortWrite,
-	IsHalted, IsLHI, ALUOp, reset_n, clk, output_port, is_halted);			
+	IsHalted, IsLHI, ALUOp, reset_n, clk, output_port, is_halted, num_inst);			
 	
 	uController uControl(inst, ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, PCSource, 
 	RegDest, RegWrite, MemRead, MemWrite, RegWriteSrc, BranchProperty, OutputPortWrite,

@@ -51,10 +51,10 @@
 `define STATE_LW3 5'd9
 `define STATE_RW_ADDR_ADD 5'd10
 `define STATE_SW2 5'd11
-`define STATE_BR_BEQ1 5'd12
-`define STATE_BR_BNE1 5'd13
-`define STATE_BR_BGZ1 5'd14
-`define STATE_BR_BLZ1 5'd15
+`define STATE_BEQ1 5'd12
+`define STATE_BNE1 5'd13
+`define STATE_BGZ1 5'd14
+`define STATE_BLZ1 5'd15
 `define STATE_JMP1 5'd16
 `define STATE_JPR1 5'd17
 `define STATE_JAL1 5'd18

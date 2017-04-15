@@ -1,0 +1,10 @@
+[Files List]
+C:\Aldec\Active-HDL-Student-Edition\vlib\std/src/standard.vhd=S
+c:\My_Designs\hw5\hw5/src/uProgramRom.v=S
+c:\My_Designs\hw5\hw5/src/cpu.v=S
+c:\My_Designs\hw5\hw5/src/ALU.v=S
+c:\My_Designs\hw5\hw5/src/register_files.v=S
+c:\My_Designs\hw5\hw5/src/uController.v=S
+c:\My_Designs\hw5\hw5/src/Datapath.v=S
+c:\My_Designs\hw5\hw5/src/Memory.v=S
+c:\My_Designs\hw5\hw5/src/cpu_TB.v=S
