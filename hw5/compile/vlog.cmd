@@ -1,0 +1,1 @@
+-o c:/My_Designs/hw5/hw5/compile -lc c:/My_Designs/hw5/library.cfg -fl c:/My_Designs/hw5/hw5/projlib.cfg -pli "C:/Aldec/Active-HDL-Student-Edition/bin/systf.dll" -epr c:/My_Designs/hw5/hw5/compile/hw5.epr -O2 -sve -msg 5 -sv2k12 -work hw5 c:/My_Designs/hw5/hw5/src/uController.v 

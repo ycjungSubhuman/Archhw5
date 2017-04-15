@@ -1,5 +1,4 @@
 i<>.\src\ALU.v
-i<>.\src\ControlUnit.v
 i<>.\src\cpu.v
 i<>.\src\Datapath.v
 i<>.\src\opcodes.v
@@ -7,3 +6,4 @@ i<>.\src\register_files.v
 i<>.\src\cpu_TB.v
 i<>.\src\Memory.v
 i<>.\src\uRom.v
+i<>.\src\uController.v

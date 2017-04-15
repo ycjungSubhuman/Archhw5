@@ -1,0 +1,24 @@
+MESSAGE "Pass 1. Scanning modules hierarchy."
+BEGINPROGRESS Compiling...
+ERROR VCP2000 "Syntax error. Unexpected token: endmodule[_ENDMODULE]. Expected tokens: ''' , '(' , '{' , 'integer'' , 'real'' ... ." "uProgramRom.v" 22  10
+ERROR VCP2565 "Undefined direction of external port RegWrite." "uProgramRom.v" 7  14
+ERROR VCP2567 "Undefined direction of internal port RegWrite." "uProgramRom.v" 7  14
+ERROR VCP2565 "Undefined direction of external port MemRead." "uProgramRom.v" 7  24
+ERROR VCP2567 "Undefined direction of internal port MemRead." "uProgramRom.v" 7  24
+ERROR VCP2565 "Undefined direction of external port MemWrite." "uProgramRom.v" 7  33
+ERROR VCP2567 "Undefined direction of internal port MemWrite." "uProgramRom.v" 7  33
+ERROR VCP2565 "Undefined direction of external port RegWriteSrc." "uProgramRom.v" 7  43
+ERROR VCP2567 "Undefined direction of internal port RegWriteSrc." "uProgramRom.v" 7  43
+ERROR VCP2565 "Undefined direction of external port BranchProperty." "uProgramRom.v" 7  56
+ERROR VCP2567 "Undefined direction of internal port BranchProperty." "uProgramRom.v" 7  56
+ERROR VCP2565 "Undefined direction of external port OutputPortWrite." "uProgramRom.v" 7  72
+ERROR VCP2567 "Undefined direction of internal port OutputPortWrite." "uProgramRom.v" 7  72
+ERROR VCP2565 "Undefined direction of external port IsHalted." "uProgramRom.v" 8  5
+ERROR VCP2567 "Undefined direction of internal port IsHalted." "uProgramRom.v" 8  5
+ERROR VCP2565 "Undefined direction of external port IsLHI." "uProgramRom.v" 8  15
+ERROR VCP2567 "Undefined direction of internal port IsLHI." "uProgramRom.v" 8  15
+ERROR VCP2565 "Undefined direction of external port ALUOp." "uProgramRom.v" 8  22
+ERROR VCP2567 "Undefined direction of internal port ALUOp." "uProgramRom.v" 8  22
+UPDATEPROGRESS 35
+ENDPROGRESS Compiling...
+FAILURE "Compile failure 19 Errors 0 Warnings  Analysis time: 0[s]."

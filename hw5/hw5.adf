@@ -24,7 +24,7 @@ LANGUAGE=VERILOG
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=
-fileopenfolder=C:\Users\jung3\Downloads
+fileopenfolder=C:\My_Designs\hw4\hw4\src
 
 [LocalVerilogSets]
 EnableSLP=1
@@ -39,7 +39,6 @@ Active_lib=
 
 [Files]
 /ALU.v=-1
-/ControlUnit.v=-1
 /cpu.v=-1
 /Datapath.v=-1
 /opcodes.v=-1
@@ -47,6 +46,7 @@ Active_lib=
 /cpu_TB.v=-1
 /Memory.v=-1
 /uProgramRom.v=-1
+/uController.v=-1
 
 [Files.Data]
 .\src\ALU.v=Verilog Source Code
@@ -58,4 +58,6 @@ Active_lib=
 .\src\cpu_TB.v=Verilog Source Code
 .\src\Memory.v=Verilog Source Code
 .\src\uProgramRom.v=Verilog Source Code
+.\src\uController.v=Verilog Source Code
+.\src\alu_register_files.v=Verilog Source Code
 
