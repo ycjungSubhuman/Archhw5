@@ -3,11 +3,11 @@
 
 module uController(inst, ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, PCSource, 
 	RegDest, RegWrite, MemRead, MemWrite, RegWriteSrc, BranchProperty, OutputPortWrite,
-	IsHalted, IsLHI, ALUOp, reset_n, clk);
+	IsHalted, IsLHI, ALUOp, reset_n, sudoClk, num_inst);
 	
 	input [`WORD_SIZE-1:0] inst;
 	input reset_n;
-	input clk;
+	inout sudoClk;
 	
 	output ALUSrcA;
 	output IorD;
@@ -26,22 +26,29 @@ module uController(inst, ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, 
 	output IsHalted;
 	output IsLHI;
 	output [1:0] ALUOp;
+	output reg [`WORD_SIZE-1:0] num_inst;
 	
 	reg [4:0] uState;
 	reg [4:0] nextuState;
 	
 	initial begin
 		uState = 0;
+		num_inst = 0;
 	end
 	
-	always@(posedge clk) begin
-		$display("state: %x, op: %d, func: %d", uState, inst[15:12], inst[5:0]);
-		$display("ALUSrcA: %x, IorD: %x, IRWrite: %x, PCWrite, %x, PCWriteCond: %x, ALUSrcB: %x, PCSource: %x, RegDest: %x, RegWrite: %x, MemRead: %x, MemWrite, %x, RegWriteSrc: %x, BranchProperty: %x, OutputPortWrite: %x, IsHalted: %x, IsLHI: %x, ALUOp: %x",
-		ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, PCSource, RegDest, RegWrite, MemRead, MemWrite, RegWriteSrc, BranchProperty, OutputPortWrite, IsHalted, IsLHI, ALUOp);
+	always@(posedge sudoClk) begin
+		//$display("state: %x, op: %d, func: %d, reset_n: %x", uState, inst[15:12], inst[5:0], reset_n);
+		//$display("ALUSrcA: %x, IorD: %x, IRWrite: %x, PCWrite, %x, PCWriteCond: %x, ALUSrcB: %x, PCSource: %x, RegDest: %x, RegWrite: %x, MemRead: %x, MemWrite, %x, RegWriteSrc: %x, BranchProperty: %x, OutputPortWrite: %x, IsHalted: %x, IsLHI: %x, ALUOp: %x",
+		//ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, PCSource, RegDest, RegWrite, MemRead, MemWrite, RegWriteSrc, BranchProperty, OutputPortWrite, IsHalted, IsLHI, ALUOp);
 		if(!reset_n) uState = 0;
 		else begin
-			$display("ylo");
+			//$display("ylo");
+
 			uState = nextuState;
+			if(nextuState == 0 ) begin
+				num_inst += 1;
+				$display("numinst increased: %d", num_inst);
+			end
 		end
 	end
 	

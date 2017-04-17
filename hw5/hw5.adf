@@ -50,7 +50,6 @@ Active_lib=
 
 [Files.Data]
 .\src\ALU.v=Verilog Source Code
-.\src\ControlUnit.v=Verilog Source Code
 .\src\cpu.v=Verilog Source Code
 .\src\Datapath.v=Verilog Source Code
 .\src\opcodes.v=Verilog Source Code
@@ -59,5 +58,10 @@ Active_lib=
 .\src\Memory.v=Verilog Source Code
 .\src\uProgramRom.v=Verilog Source Code
 .\src\uController.v=Verilog Source Code
-.\src\alu_register_files.v=Verilog Source Code
 
+[SpecTracer]
+WindowVisible=0
+[HierarchyViewer]
+HierarchyInformation=
+ShowHide=ShowTopLevel
+Selected=

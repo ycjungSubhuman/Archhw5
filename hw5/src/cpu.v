@@ -47,11 +47,11 @@ module cpu (clk, reset_n, readM1, address1, data1, readM2, writeM2, address2, da
 	readM2, writeM2, address2, data2,
 	ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, PCSource, 
 	RegDest, RegWrite, MemRead, MemWrite, RegWriteSrc, BranchProperty, OutputPortWrite,
-	IsHalted, IsLHI, ALUOp, reset_n, clk, output_port, is_halted, num_inst);			
+	IsHalted, IsLHI, ALUOp, reset_n, clk, output_port, is_halted);			
 	
 	uController uControl(inst, ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, PCSource, 
 	RegDest, RegWrite, MemRead, MemWrite, RegWriteSrc, BranchProperty, OutputPortWrite,
-	IsHalted, IsLHI, ALUOp, reset_n, clk);
+	IsHalted, IsLHI, ALUOp, reset_n, clk, num_inst);
 	
 
 endmodule							  																		  

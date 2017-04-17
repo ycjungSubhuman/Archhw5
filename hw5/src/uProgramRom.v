@@ -72,7 +72,7 @@ module uProgramRom (state, inst,
 				ALUSrcA = 0;
 				ALUSrcB = 3;
 				ALUOp = 1;
-				$display("rom examining opcode %x", opcode);
+				//$display("rom examining opcode %x", opcode);
 				if(opcode == `ALU_OP) begin
 					if(func == `INST_FUNC_WWD) nextstate = `STATE_WWD1;
 					else if(func == `INST_FUNC_JPR) nextstate = `STATE_JPR1;
@@ -116,6 +116,7 @@ module uProgramRom (state, inst,
 				nextstate = `STATE_WRITE_RT;
 			end 
 			`STATE_ORI1: begin
+				ALUSrcA = 1;
 				ALUSrcB = 4;
 				IsLHI = 0;
 				ALUOp = 2;

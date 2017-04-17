@@ -7,7 +7,7 @@ module Datapath (inst,
 	readM2, writeM2, address2, data2,
 	ALUSrcA, IorD, IRWrite, PCWrite, PCWriteCond, ALUSrcB, PCSource, 
 	RegDest, RegWrite, MemRead, MemWrite, RegWriteSrc, BranchProperty, OutputPortWrite,
-	IsHalted, IsLHI, ALUOp, reset_n, clk, output_port, is_halted, num_inst);  
+	IsHalted, IsLHI, ALUOp, reset_n, clk, output_port, is_halted);  
 	output inst;	 
 	
 	output readM1;
@@ -21,9 +21,8 @@ module Datapath (inst,
 
 	input reset_n;	  
 	input clk;
-	output reg output_port;
+	output reg [15:0] output_port;
 	output reg is_halted;
-	output reg [`WORD_SIZE-1:0] num_inst;
 	
 	//control bits
 	input ALUSrcA;
@@ -48,7 +47,6 @@ module Datapath (inst,
 	reg [`WORD_SIZE-1:0] Pc;
 	reg [`WORD_SIZE-1:0] ALUOut;
 	reg [`WORD_SIZE-1:0] MDR;
-	reg [`WORD_SIZE-1:0] nextPc;
 	reg [`WORD_SIZE-1:0] A;
 	reg [`WORD_SIZE-1:0] B;
 	reg [`WORD_SIZE-1:0] writeData;
@@ -59,14 +57,17 @@ module Datapath (inst,
 	//wires
 	wire [`WORD_SIZE-1:0] readData1;
 	wire [`WORD_SIZE-1:0] readData2;
-	wire [`WORD_SIZE-1:0] aluOut;
+	wire [`WORD_SIZE-1:0] aluOutComb;
 	wire overflowFlag;
 	wire branchMet;
 	wire zero;
 	
-	assign zero = aluOut==0;
-	assign branchMet = ((BranchProperty==0) && zero) || ((BranchProperty==1) && !zero)
-		|| ((BranchProperty==2) && A[15] && !zero) || ((BranchProperty==3) && !A[15] && !zero);
+	reg [1:0] prevBranchProperty;
+	reg prevPCWriteCond;
+	
+	assign zero = aluOutComb==0;
+	assign prevBranchMet = ((prevBranchProperty==0) && zero) || ((prevBranchProperty==1) && !zero)
+		|| ((prevBranchProperty==2) && !A[15] && !zero) || ((prevBranchProperty==3) && A[15] && !zero);
 	
 	//visible states
 	reg [`WORD_SIZE-1:0] inst;
@@ -82,41 +83,85 @@ module Datapath (inst,
 	reg [`WORD_SIZE-1:0] next_num_inst;
 	initial begin
 		Pc = 0;
-		nextPc = 0;
 		readM1 = 0;
 		readM2 = 0;
 		writeM2 = 0;
-		num_inst = 0;
 		next_num_inst = 0;
+		aluOpCode = 0;
+		pendingPcUpdate = 0;
+		prevRegWrite = 0;
+		prevPCWriteCond = 0;
 	end
 	
-	always @(*) begin
-
-	end
-	
-
-	always @(posedge clk) begin
-		if(!reset_n) begin
-			Pc = 0;
-			nextPc = 0;
+	always @(data1) begin
+	  	//fetching memory data
+		if(readM1 == 1) begin 
+			inst = data1;
 			readM1 = 0;
+
+		end
+	end
+	
+	reg pendingPcUpdate;
+	reg [1:0] prevPcSource;
+	reg [15:0] prevJmpTarget;
+	
+	reg [2:0] aluOpCode;
+	reg prevRegWrite;
+	
+	always @(posedge clk) begin
+		prevRegWrite = RegWrite;
+
+		
+		if(readM2 == 1) begin
+			MDR = data2;
 			readM2 = 0;
-			writeM2 = 0;
-			num_inst = 0;
-			next_num_inst = 0;
+		end
+		if(writeM2 == 1) writeM2 = 0;
+			
+		if(pendingPcUpdate) begin		
+			pendingPcUpdate = 0;
+			if(prevPcSource == 0) Pc = aluOutComb;
+			else if(prevPcSource == 1) Pc = ALUOut;
+			else if(prevPcSource == 2) Pc = prevJmpTarget;
+			else Pc = A;
 		end
 		
+
 		
-		num_inst = next_num_inst;
 		//Select NextPC
-		if(PCWriteCond && branchMet || PCWrite) begin
-			if(PCSource == 0) nextPc = aluOut;
-			else if(PCSource == 1) nextPc = ALUOut;
-			else if(PCSource == 2) nextPc = {Pc[15:12], inst[11:0]};
-			else nextPc = A;
-			$display("num_inst: %x to %x", num_inst, next_num_inst);
-			next_num_inst = num_inst + 1;
+		if(PCWrite) begin
+			pendingPcUpdate = 1;
+			prevPcSource = PCSource;
+			prevJmpTarget = {Pc[15:12], inst[11:0]};
 		end
+		
+		//$display("prevBranchMet: %x, prevBranchProperty: %x, prevPCWriteCond: %x, zero: %x, A: %x", prevBranchMet, prevBranchProperty, prevPCWriteCond, zero, A);
+		if(prevPCWriteCond && prevBranchMet) begin
+			Pc = ALUOut;
+		end		 
+		
+		if(IsLHI) ALUOut = {8'b00000000, inst[7:0]} << 8;
+		else ALUOut = aluOutComb;
+		
+		prevBranchProperty = BranchProperty;
+		prevPCWriteCond = PCWriteCond;
+		
+		if(ALUOp == 0) begin
+			case(inst[5:0])
+				`INST_FUNC_ADD: aluOpCode = `FUNC_ADD;
+				`INST_FUNC_SUB: aluOpCode = `FUNC_SUB;
+				`INST_FUNC_AND: aluOpCode = `FUNC_AND;
+				`INST_FUNC_ORR: aluOpCode = `FUNC_ORR;
+				`INST_FUNC_NOT: aluOpCode = `FUNC_NOT;
+				`INST_FUNC_TCP: aluOpCode = `FUNC_TCP;
+				`INST_FUNC_SHL: aluOpCode = `FUNC_SHL;
+				`INST_FUNC_SHR: aluOpCode = `FUNC_SHR;
+			endcase
+		end
+		else if (ALUOp == 1) aluOpCode = `FUNC_ADD;
+		else if (ALUOp == 2) aluOpCode = `FUNC_ORR;
+		else aluOpCode = `FUNC_SUB;
 		
 		//Select ALU operands
 		if(ALUSrcA == 0) ALUOperandA = Pc;
@@ -130,6 +175,9 @@ module Datapath (inst,
 		end
 		else if (ALUSrcB == 4) ALUOperandB = {8'b00000000, inst[7:0]};
 		else ALUOperandB = 0;
+
+		
+
 		
 		//Select Reg Write Data
 		if(RegWriteSrc==0)
@@ -144,16 +192,7 @@ module Datapath (inst,
 		else if(RegDest == 1) writeTargetReg = inst[7:6];
 		else writeTargetReg = 2;	
 			
-		//fetching memory data
-		if(readM1 == 1) begin 
-			inst = data1;
-			readM1 = 0;
-		end
-		if(readM2 == 1) begin
-			MDR = data2;
-			readM2 = 0;
-		end
-		if(writeM2 == 1) writeM2 = 0;
+
 		
 		//pending memory operations 		
 		if(!IorD && IRWrite) begin //pend instruction fetch
@@ -161,7 +200,7 @@ module Datapath (inst,
 			address1 = Pc;
 		end
 		
-		if(IorD && RegWrite && MemRead) begin //pend data fetch
+		if(IorD && MemRead) begin //pend data fetch
 			readM2 = 1;
 			address2 = ALUOut; 
 		end
@@ -172,20 +211,36 @@ module Datapath (inst,
 			inoutM2WriteBuf = B;
 		end
 		
-		//control
-		if(OutputPortWrite) output_port = A;
-		else output_port = 16'bz;
+
 			
 		if(IsHalted) is_halted = 1;
 		else is_halted = 0;
 
-		Pc = nextPc;
+
 		A = readData1;
 		B = readData2;
-		if(IsLHI) ALUOut = {8'b00000000, A} << 8;
-		else ALUOut = aluOut;
+		//control
+		if(OutputPortWrite) output_port = A;
+				
+
+			
+		if(!reset_n) begin
+			Pc = 0;
+			readM1 = 0;
+			readM2 = 0;
+			writeM2 = 0;
+			aluOpCode = 0;
+			inst = 16'bx;
+			pendingPcUpdate = 0;
+			prevRegWrite = 0;
+			prevPCWriteCond = 0;
+		end
+		//$display("posedge! Pc: %x, readM1: %x, readM2: %x, writeM2: %x,  aluOutComb: %x, ALUOut: %x, ALUOperandA: %x, ALUOperandB: %x, aluOpCode: %x, reset_n: %x, A: %x, B: %x", 
+		//Pc, readM1, readM2, writeM2, aluOutComb, ALUOut, ALUOperandA, ALUOperandB, aluOpCode, reset_n, A, B);
 	end
+
+	 
 	
-	RegisterFiles regfile (RegWrite, inst[11:10], inst[9:8], writeTargetReg, writeData, clk, reset_n, readData1, readData2);	
-	ALU alu (overflowFlag, aluOut, ALUOperandA, ALUOperandB, ALUOp);
+	RegisterFiles regfile (prevRegWrite, inst[11:10], inst[9:8], writeTargetReg, writeData, clk, reset_n, readData1, readData2);	
+	ALU alu (overflowFlag, aluOutComb, ALUOperandA, ALUOperandB, aluOpCode);
 endmodule

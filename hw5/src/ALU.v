@@ -1,4 +1,4 @@
-`timescale 1ns /100ps
+`timescale 1ns/1ns
 `include "opcodes.v"
 
 module ALU (
@@ -26,7 +26,8 @@ module ALU (
 			`FUNC_TCP: Y = ~input1 + 1;
 			`FUNC_SHL: Y = input1 << 1;
 			`FUNC_SHR: Y = $signed(input1) >>> 1;
-		endcase	
+		endcase
+		//$display("ALUINSIEEZE!!!!!! %x, %x, %x, %x", input1, input2, op,Y);
 	end
 	
 endmodule
